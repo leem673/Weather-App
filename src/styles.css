@@ -1,0 +1,69 @@
+.container {
+  background: rgba(121, 194, 208, 0.5);
+  border: 1px solid #dadde1;
+  border-radius: 10px;
+  color: white;
+  box-shadow: 5px 10px 10px rgba(232, 232, 232, 0.5);
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  margin-top: 30px;
+  max-width: 720px;
+  padding: 30px;
+  position: fixed;
+  right: 350px;
+  text-align: center;
+}
+h1 {
+  font-weight: 700;
+}
+#icon {
+  position: relative;
+  top: -10px;
+  width: 80px;
+}
+.current {
+  left: -20px;
+  position: relative;
+}
+.units {
+  position: relative;
+  top: -15px;
+}
+#current-temp {
+  font-size: 36px;
+}
+#fahrenheit-link,
+#celsius-link {
+  color: white;
+}
+.active {
+  color: white;
+  cursor: default;
+  text-decoration: none;
+}
+.active:hover {
+  color: white;
+  text-decoration: none;
+}
+#description {
+  font-size: 24px;
+}
+ul {
+  list-style: none;
+  margin: 0 0 20px 0;
+  text-align: center;
+  text-transform: capitalize;
+}
+img {
+  max-width: 100%;
+}
+.open-source,
+.photo-credit {
+  color: white;
+}
+.footer {
+  bottom: 170px;
+  color: white;
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  position: sticky;
+  text-align: center;
+}
