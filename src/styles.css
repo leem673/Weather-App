@@ -1,3 +1,8 @@
+body {
+  background-image: url(https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/888/original/pexels-larry-snickers-2607830.jpg?1688846128);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 .container {
   background: rgba(121, 194, 208, 0.5);
   border: 1px solid #dadde1;
@@ -5,11 +10,10 @@
   color: white;
   box-shadow: 5px 10px 10px rgba(232, 232, 232, 0.5);
   font-family: "M PLUS Rounded 1c", sans-serif;
-  margin-top: 30px;
+  top: 20px;
   max-width: 720px;
   padding: 30px;
-  position: fixed;
-  right: 350px;
+  position: relative;
   text-align: center;
 }
 h1 {
@@ -53,19 +57,14 @@ ul {
   text-align: center;
   text-transform: capitalize;
 }
-img {
-  max-width: 100%;
-}
 .open-source,
-.open-source:hover,
-.photo-credit,
-.photo-credit:hover {
+.photo-credit {
   color: white;
 }
 .footer {
-  bottom: 170px;
   color: white;
   font-family: "M PLUS Rounded 1c", sans-serif;
+  margin-top: 30px;
   position: sticky;
   text-align: center;
 }
