@@ -57,7 +57,9 @@ img {
   max-width: 100%;
 }
 .open-source,
-.photo-credit {
+.open-source:hover,
+.photo-credit,
+.photo-credit:hover {
   color: white;
 }
 .footer {
