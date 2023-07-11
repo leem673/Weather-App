@@ -24,6 +24,34 @@ function formatDate() {
 }
 formatDate();
 
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+
+  let days = ["Wed", "Thu", "Fri", "Sat", "Sun"];
+
+  let forecastHTML = `<div class="row">`;
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+      <div class="col">
+            <div class="forecast-date">${day}</div>
+            <img
+              src="https://openweathermap.org/img/wn/03n@2x.png"
+              width="50"
+            />
+            <div class="forecast-temps">
+              <span class="forecast-high-temp">85°</span>
+              <span class="forecast-low-temp">80°</span>
+            </div>
+          </div>
+          `;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
 function displayTemp(response) {
   fahrenheitTemp = response.data.main.temp;
 
@@ -89,3 +117,4 @@ let fahrenheitLink = document.querySelector("#fahrenheit-link");
 fahrenheitLink.addEventListener("click", displayFahrenheit);
 
 search("New York");
+displayForecast();
