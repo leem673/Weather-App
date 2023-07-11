@@ -57,6 +57,9 @@ ul {
   text-align: center;
   text-transform: capitalize;
 }
+.low-temp-1 {
+  opacity: 0.5;
+}
 .open-source,
 .photo-credit {
   color: white;
