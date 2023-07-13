@@ -58,9 +58,13 @@ ul {
 .forecast-low-temp {
   opacity: 0.5;
 }
-.open-source,
-.photo-credit {
+a {
   color: white;
+}
+a:hover {
+  color: #53a8b6;
+  font-weight: 700;
+  transition: all 200ms ease-in-out;
 }
 .footer {
   color: white;
