@@ -55,6 +55,9 @@ ul {
   border: 1px solid white;
   transition: all 200ms ease-in-out;
 }
+.forecast-date {
+  font-size: 24px;
+}
 .forecast-low-temp {
   opacity: 0.5;
 }
