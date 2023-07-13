@@ -42,6 +42,7 @@ function displayForecast(response) {
         forecastHTML +
         `
       <div class="col">
+      <div class="card-body">
             <div class="forecast-date">${formatDay(forecastDay.dt)}</div>
             <img
               src="https://openweathermap.org/img/wn/${
@@ -52,11 +53,12 @@ function displayForecast(response) {
             <div class="forecast-temps">
               <span class="forecast-high-temp">${Math.round(
                 forecastDay.temp.max
-              )}°</span>
+              )}°F</span>
               <span class="forecast-low-temp">${Math.round(
                 forecastDay.temp.min
-              )}°</span>
+              )}°F</span>
             </div>
+          </div>
           </div>
           `;
     }
@@ -74,8 +76,6 @@ function getForecast(coordinates) {
 }
 
 function displayTemp(response) {
-  fahrenheitTemp = response.data.main.temp;
-
   document.querySelector("#current-temp").innerHTML = Math.round(
     response.data.main.temp
   );
@@ -111,31 +111,6 @@ function handleSubmit(event) {
   search(cityInput.value);
 }
 
-function displayCelsius(event) {
-  event.preventDefault();
-  let tempElement = document.querySelector("#current-temp");
-  celsiusLink.classList.add("active");
-  fahrenheitLink.classList.remove("active");
-  let celsiusTemp = ((fahrenheitTemp - 32) * 5) / 9;
-  tempElement.innerHTML = Math.round(celsiusTemp);
-}
-
-function displayFahrenheit(event) {
-  event.preventDefault();
-  let tempElement = document.querySelector("#current-temp");
-  celsiusLink.classList.remove("active");
-  fahrenheitLink.classList.add("active");
-  tempElement.innerHTML = Math.round(fahrenheitTemp);
-}
-
-let fahrenheitTemp = null;
-
 document.querySelector("#city-input").addEventListener("submit", handleSubmit);
-
-let celsiusLink = document.querySelector("#celsius-link");
-celsiusLink.addEventListener("click", displayCelsius);
-
-let fahrenheitLink = document.querySelector("#fahrenheit-link");
-fahrenheitLink.addEventListener("click", displayFahrenheit);
 
 search("New York");
