@@ -1,4 +1,4 @@
-function displayTemp(response) {
+function displayCurrent(response) {
   document.querySelector("#current-temp").innerHTML = Math.round(
     response.data.temperature.current
   );
@@ -48,30 +48,36 @@ formatDate();
 function search(city) {
   let apiKey = "1e1b05a0d114f3f366oae3d34b816t50";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=imperial`;
-  axios.get(apiUrl).then(displayTemp);
+  axios.get(apiUrl).then(displayCurrent);
 }
 
 function handleSubmit(event) {
   event.preventDefault();
-  let cityInput = document.querySelector("#insert-city");
+  let cityInput = document.querySelector("#search-input");
   search(cityInput.value);
 }
 
 function formatDay(timestamp) {
   let date = new Date(timestamp * 1000);
-  let day = date.getDay();
   let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  return days[day];
+  return days[date.getDay()];
+}
+function getForecast(city) {
+  let apiKey = "1e1b05a0d114f3f366oae3d34b816t50";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=imperial`;
+  axios.get(apiUrl).then(displayForecast);
 }
 function displayForecast(response) {
-  let forecastHTML = "";
+  let forecastHtml = "";
 
   response.data.daily.forEach(function (day, index) {
     if (index < 5) {
-      forecastHTML =
-        forecastHTML +
+      forecastHtml =
+        forecastHtml +
         `
       <div class="col">
+      <div class ="card text-center">
+      <div class="card-body">
             <div class="forecast-date">${formatDay(day.time)}</div>
             <img
               src="${day.condition.icon_url}"
@@ -84,19 +90,15 @@ function displayForecast(response) {
               <span class="forecast-low-temp">${Math.round(
                 day.temperature.minimum
               )}°</span>
+              </div>
             </div>
+          </div>
           </div>
           `;
     }
   });
   let forecastElement = document.querySelector("#forecast");
-  forecastElement.innerHTML = forecastHTML;
-}
-
-function getForecast(city) {
-  let apiKey = "1e1b05a0d114f3f366oae3d34b816t50";
-  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=imperial`;
-  axios.get(apiUrl).then(displayForecast);
+  forecastElement.innerHTML = forecastHtml;
 }
 
 document.querySelector("#city-input").addEventListener("submit", handleSubmit);
