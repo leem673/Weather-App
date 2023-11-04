@@ -45,14 +45,12 @@ ul {
 }
 .card-body {
   background-color: rgba(121, 194, 208, 0.6);
-  border: none;
   border-radius: 10px;
-  box-shadow: 5px 10px 10px rgba(232, 232, 232, 0.3);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 .card-body:hover {
   cursor: pointer;
-  background-color: rgba(121, 194, 208, 0.7);
-  border: 1px solid white;
+  background-color: rgba(121, 194, 208, 0.8);
   transition: all 300ms ease-in-out;
 }
 .forecast-date {

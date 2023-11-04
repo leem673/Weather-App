@@ -17,7 +17,7 @@ function displayCurrent(response) {
   document.querySelector("#wind").innerHTML = Math.round(
     response.data.wind.speed
   );
-  getForecast(response.data.city);
+  getForecast(response.data.coordinates);
 }
 function formatDate() {
   let now = new Date();
@@ -62,19 +62,23 @@ function formatDay(timestamp) {
   let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   return days[date.getDay()];
 }
-function getForecast(city) {
+
+function getForecast(coordinates) {
   let apiKey = "1e1b05a0d114f3f366oae3d34b816t50";
-  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=imperial`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${apiKey}&units=imperial`;
+  console.log(apiUrl);
   axios.get(apiUrl).then(displayForecast);
 }
+
 function displayForecast(response) {
+  console.log(response.data);
   let forecastElement = document.querySelector("#forecast");
 
   let forecastHTML = `<div class="row">`;
   response.data.daily.forEach(function (day, index) {
     if (index < 5) {
-      forecastHtml =
-        forecastHtml +
+      forecastHTML =
+        forecastHTML +
         `
       <div class="col">
       <div class ="card text-center">
@@ -99,7 +103,7 @@ function displayForecast(response) {
     }
   });
   forecastHTML = forecastHTML + `</div>`;
-  forecastElement.innerHTML = forecastHtml;
+  forecastElement.innerHTML = forecastHTML;
 }
 
 document.querySelector("#city-input").addEventListener("submit", handleSubmit);
