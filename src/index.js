@@ -68,8 +68,9 @@ function getForecast(city) {
   axios.get(apiUrl).then(displayForecast);
 }
 function displayForecast(response) {
-  let forecastHtml = "";
+  let forecastElement = document.querySelector("#forecast");
 
+  let forecastHTML = `<div class="row">`;
   response.data.daily.forEach(function (day, index) {
     if (index < 5) {
       forecastHtml =
@@ -97,7 +98,7 @@ function displayForecast(response) {
           `;
     }
   });
-  let forecastElement = document.querySelector("#forecast");
+  forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHtml;
 }
 
