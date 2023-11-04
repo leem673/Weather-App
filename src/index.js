@@ -105,3 +105,4 @@ function displayForecast(response) {
 document.querySelector("#city-input").addEventListener("submit", handleSubmit);
 
 search("New York");
+displayForecast();
