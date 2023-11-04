@@ -1,3 +1,24 @@
+function displayTemp(response) {
+  document.querySelector("#current-temp").innerHTML = Math.round(
+    response.data.temperature.current
+  );
+
+  document.querySelector("#city").innerHTML = response.data.city;
+  document
+    .querySelector("#icon")
+    .setAttribute("src", `${response.data.condition.icon_url}`);
+  document
+    .querySelector("#icon")
+    .setAttribute("alt", response.data.condition.description);
+  document.querySelector("#description").innerHTML =
+    response.data.condition.description;
+  document.querySelector("#humidity").innerHTML =
+    response.data.temperature.humidity;
+  document.querySelector("#wind").innerHTML = Math.round(
+    response.data.wind.speed
+  );
+  getForecast(response.data.city);
+}
 function formatDate() {
   let now = new Date();
   let hours = now.getHours();
@@ -24,84 +45,9 @@ function formatDate() {
 }
 formatDate();
 
-function formatDay(timestamp) {
-  let date = new Date(timestamp * 1000);
-  let day = date.getDay();
-  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  return days[day];
-}
-
-function displayForecast(response) {
-  let forecast = response.data.daily;
-  let forecastElement = document.querySelector("#forecast");
-
-  let forecastHTML = `<div class="row">`;
-  forecast.forEach(function (forecastDay, index) {
-    if (index < 5) {
-      forecastHTML =
-        forecastHTML +
-        `
-      <div class="col">
-      <div class="card-body">
-            <div class="forecast-date">${formatDay(forecastDay.dt)}</div>
-            <img
-              src="https://openweathermap.org/img/wn/${
-                forecastDay.weather[0].icon
-              }@2x.png"
-              width="50"
-            />
-            <div class="forecast-temps">
-              <span class="forecast-high-temp">${Math.round(
-                forecastDay.temp.max
-              )}°</span>
-              <span class="forecast-low-temp">${Math.round(
-                forecastDay.temp.min
-              )}°</span>
-            </div>
-          </div>
-          </div>
-          `;
-    }
-  });
-
-  forecastHTML = forecastHTML + `</div>`;
-  forecastElement.innerHTML = forecastHTML;
-}
-
-function getForecast(coordinates) {
-  console.log(coordinates);
-  let apiKey = "93d43dfe3b4a950e5b187e5dc313705e";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=imperial`;
-  axios.get(apiUrl).then(displayForecast);
-}
-
-function displayTemp(response) {
-  document.querySelector("#current-temp").innerHTML = Math.round(
-    response.data.main.temp
-  );
-
-  document.querySelector("#city").innerHTML = response.data.name;
-  document
-    .querySelector("#icon")
-    .setAttribute(
-      "src",
-      `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
-    );
-  document
-    .querySelector("#icon")
-    .setAttribute("alt", response.data.weather[0].description);
-  document.querySelector("#description").innerHTML =
-    response.data.weather[0].description;
-  document.querySelector("#humidity").innerHTML = response.data.main.humidity;
-  document.querySelector("#wind").innerHTML = Math.round(
-    response.data.wind.speed
-  );
-  getForecast(response.data.coord);
-}
-
 function search(city) {
-  let apiKey = "93d43dfe3b4a950e5b187e5dc313705e";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
+  let apiKey = "1e1b05a0d114f3f366oae3d34b816t50";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=imperial`;
   axios.get(apiUrl).then(displayTemp);
 }
 
@@ -109,6 +55,48 @@ function handleSubmit(event) {
   event.preventDefault();
   let cityInput = document.querySelector("#insert-city");
   search(cityInput.value);
+}
+
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+function displayForecast(response) {
+  let forecastHTML = "";
+
+  response.data.daily.forEach(function (day, index) {
+    if (index < 5) {
+      forecastHTML =
+        forecastHTML +
+        `
+      <div class="col">
+            <div class="forecast-date">${formatDay(day.time)}</div>
+            <img
+              src="${day.condition.icon_url}"
+              width="50"
+            />
+            <div class="forecast-temps">
+              <span class="forecast-high-temp">${Math.round(
+                day.temperature.maximum
+              )}°</span>
+              <span class="forecast-low-temp">${Math.round(
+                day.temperature.minimum
+              )}°</span>
+            </div>
+          </div>
+          `;
+    }
+  });
+  let forecastElement = document.querySelector("#forecast");
+  forecastElement.innerHTML = forecastHTML;
+}
+
+function getForecast(city) {
+  let apiKey = "1e1b05a0d114f3f366oae3d34b816t50";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=imperial`;
+  axios.get(apiUrl).then(displayForecast);
 }
 
 document.querySelector("#city-input").addEventListener("submit", handleSubmit);
